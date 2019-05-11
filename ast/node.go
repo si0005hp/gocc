@@ -1,7 +1,7 @@
 package ast
 
 type ExprNode interface {
-	Accept()
+	Accept(v Visitor)
 }
 
 type (
@@ -16,5 +16,5 @@ type (
 	}
 )
 
-func (n *IntNode) Accept()   {}
-func (n *BinOpNode) Accept() {}
+func (n *IntNode) Accept(v Visitor)   { v.VisitInt(*n) }
+func (n *BinOpNode) Accept(v Visitor) { v.VisitBinOp(*n) }

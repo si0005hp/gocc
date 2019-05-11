@@ -1,18 +1,35 @@
 package main
 
 import (
+	"flag"
 	"fmt"
-	"os"
 
 	"github.com/antlr/antlr4/runtime/Go/antlr"
+	"github.com/si0005hp/gocc/ast"
 	"github.com/si0005hp/gocc/parser"
 )
 
 func main() {
-	i, _ := antlr.NewFileStream(os.Args[1])
-	p := getParser(i)
+	flag.Parse()
+	i, _ := antlr.NewFileStream(flag.Arg(0))
 
-	fmt.Println(p.Expr().GetN())
+	if flag.Arg(1) == "v" {
+		treeView(i)
+	} else {
+		run(i)
+	}
+}
+
+func run(input *antlr.FileStream) {
+	p := getParser(input)
+	g := &ast.CodeGenerator{}
+	p.Expr().GetN().Accept(g)
+}
+
+func treeView(input *antlr.FileStream) {
+	p := getParser(input)
+	s := antlr.TreesStringTree(p.Expr(), p.GetRuleNames(), nil)
+	fmt.Println(s)
 }
 
 func getParser(input *antlr.FileStream) *parser.GoccParser {

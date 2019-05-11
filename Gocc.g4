@@ -6,7 +6,7 @@ import "github.com/si0005hp/gocc/ast"
 
 expr returns [ast.ExprNode n]
   : l=expr op=('*'|'/') r=expr      { $n = &ast.BinOpNode{$op.type, $l.n, $r.n} }
-	| l=expr op=('+'|'-') r=expr      { $n = &ast.BinOpNode{$op.type, $l.n, $l.n} }
+	| l=expr op=('+'|'-') r=expr      { $n = &ast.BinOpNode{$op.type, $l.n, $r.n} }
   | INT                             { $n = &ast.IntNode{$INT.int} }
   ;
 
