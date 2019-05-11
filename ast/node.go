@@ -1,6 +1,6 @@
 package ast
 
-type Expr interface {
+type ExprNode interface {
 	Accept()
 }
 
@@ -9,12 +9,12 @@ type (
 		Val int
 	}
 
-	ExprNode struct {
-		op    string
-		left  *ExprNode
-		right *ExprNode
+	BinOpNode struct {
+		Op    int
+		Left  ExprNode
+		Right ExprNode
 	}
 )
 
-func (n *IntNode) Accept()  {}
-func (n *ExprNode) Accept() {}
+func (n *IntNode) Accept()   {}
+func (n *BinOpNode) Accept() {}

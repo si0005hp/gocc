@@ -12,7 +12,7 @@ func main() {
 	i, _ := antlr.NewFileStream(os.Args[1])
 	p := getParser(i)
 
-	fmt.Println(p)
+	fmt.Println(p.Expr().GetN())
 }
 
 func getParser(input *antlr.FileStream) *parser.GoccParser {
@@ -20,14 +20,3 @@ func getParser(input *antlr.FileStream) *parser.GoccParser {
 	parser := parser.NewGoccParser(antlr.NewCommonTokenStream(lexer, 0))
 	return parser
 }
-
-// import (
-// 	"fmt"
-
-// 	"github.com/si0005hp/gocc/ast"
-// )
-
-// func main() {
-// 	i := &ast.IntNode{}
-// 	fmt.Println(i)
-// }
